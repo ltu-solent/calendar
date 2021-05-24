@@ -171,14 +171,17 @@ Feature: Perform basic calendar functionality
     And I follow "This month"
     And I click on "New event" "button"
     When I click on "Save" "button"
-    Then I should see "Required" in the "Event title" "form_row"
+    Then I should see "Required"
     And I am on homepage
     And I follow "This month"
     And I click on "New event" "button"
-    And I set the field "Event title" to "Really awesome event!"
     And I set the field "Type of event" to "Course"
     When I click on "Save" "button"
-    And I should see "Select a course" in the "Course" "form_row"
+    Then I should see "Required"
+    And I should see "Select a course"
+    And I set the field "Event title" to "Really awesome event!"
+    When I click on "Save" "button"
+    Then I should see "Select a course"
 
   @javascript
   Scenario: Default event type selection in the event form

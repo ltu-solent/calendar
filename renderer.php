@@ -135,15 +135,12 @@ class core_calendar_renderer extends plugin_renderer_base {
     /**
      * Displays an event
      *
-     * @deprecated since 3.9
-     *
      * @param calendar_event $event
      * @param bool $showactions
      * @return string
      */
     public function event(calendar_event $event, $showactions=true) {
         global $CFG;
-        debugging('This function is no longer used', DEBUG_DEVELOPER);
 
         $event = calendar_add_event_metadata($event);
         $context = $event->context;
@@ -208,9 +205,9 @@ class core_calendar_renderer extends plugin_renderer_base {
             $output .= html_writer::tag('div', $event->courselink);
         }
         if (!empty($event->time)) {
-            $output .= html_writer::tag('span', $event->time, array('class' => 'date float-sm-right mr-1'));
+            $output .= html_writer::tag('span', $event->time, array('class' => 'date float-sm-right m-r-1'));
         } else {
-            $attrs = array('class' => 'date float-sm-right mr-1');
+            $attrs = array('class' => 'date float-sm-right m-r-1');
             $output .= html_writer::tag('span', calendar_time_representation($event->timestart), $attrs);
         }
 
@@ -295,15 +292,12 @@ class core_calendar_renderer extends plugin_renderer_base {
         $courseurl = new moodle_url($returnurl);
         $courseurl->remove_params('course');
 
-        $labelattributes = [];
-        if (empty($label)) {
+        if ($label === null) {
             $label = get_string('listofcourses');
-            $labelattributes['class'] = 'sr-only';
         }
 
-        $select = html_writer::label($label, 'course', false, $labelattributes);
-        $select .= html_writer::select($courseoptions, 'course', $selected, false,
-                ['class' => 'cal_courses_flt ml-1 mr-auto', 'id' => 'course']);
+        $select = html_writer::label($label, 'course', false, ['class' => 'm-r-1']);
+        $select .= html_writer::select($courseoptions, 'course', $selected, false, ['class' => 'cal_courses_flt']);
 
         return $select;
     }
@@ -395,7 +389,7 @@ class core_calendar_renderer extends plugin_renderer_base {
         }
         $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()));
         $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'id', 'value' => $subscription->id));
-        $html .= html_writer::start_tag('div', array('class' => 'btn-group float-right'));
+        $html .= html_writer::start_tag('div', array('class' => 'btn-group pull-right'));
         if (!empty($subscription->url)) {
             $html .= html_writer::tag('button', get_string('update'), array('type'  => 'submit', 'name' => 'action',
                                                                             'class' => 'btn btn-secondary',
